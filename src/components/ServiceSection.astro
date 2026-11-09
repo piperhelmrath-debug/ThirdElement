@@ -1,0 +1,28 @@
+---
+interface Props {
+  id: string;
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  services: { title: string; body: string }[];
+  tone?: 'light' | 'dark';
+}
+
+const { id, eyebrow, heading, intro, services, tone = 'light' } = Astro.props;
+---
+
+<section id={id} class:list={['section', tone === 'dark' && 'section--dark']}>
+  <div class="container">
+    <p class="eyebrow">{eyebrow}</p>
+    <h2>{heading}</h2>
+    <p class="lead">{intro}</p>
+    <div class="grid grid--3">
+      {services.map((s) => (
+        <article class="card">
+          <h3>{s.title}</h3>
+          <p>{s.body}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

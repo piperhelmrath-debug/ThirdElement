@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import ServiceSection from '../components/ServiceSection.astro';
+import { site, pillars, operations, artists, experience, howWeWork } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<Base>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="#top" class="brand">
+        <span class="brand__mark" aria-hidden="true"></span>
+        {site.name}
+      </a>
+      <nav aria-label="Main">
+        <a href="#operations">Operations</a>
+        <a href="#artists">Artists</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="nav__cta">Get in touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">{site.location} · Fractional operations</p>
+        <h1>{site.name}</h1>
+        <p class="hero__tagline">{site.tagline}</p>
+        <ul class="pills">
+          {pillars.map((p) => <li>{p.label}</li>)}
+        </ul>
+        <div class="hero__actions">
+          <a href="#contact" class="btn">Start a conversation</a>
+          <a href="#operations" class="btn btn--ghost">See what I do</a>
+        </div>
+      </div>
+    </section>
+
+    <ServiceSection id="operations" eyebrow="For companies" {...operations} />
+    <ServiceSection id="artists" eyebrow="For artists" tone="dark" {...artists} />
+
+    <section id="about" class="section">
+      <div class="container">
+        <p class="eyebrow">About</p>
+        <h2>{experience.heading}</h2>
+        <div class="grid grid--3">
+          {experience.items.map((i) => (
+            <article class="card card--plain">
+              <h3>{i.title}</h3>
+              <p>{i.body}</p>
+            </article>
+          ))}
+        </div>
+
+        <h2 class="subhead">How I work</h2>
+        <ul class="how">
+          {howWeWork.map((h) => (
+            <li>
+              <strong>{h.title}</strong>
+              <span>{h.body}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact" class="section cta">
+      <div class="container cta__inner">
+        <h2>Want to talk about a project or a booking?</h2>
+        <p>Tell me what you’re working on. I’ll reply within two working days.</p>
+        <a href={`mailto:${site.email}`} class="btn btn--light">Get in touch</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© {year} {site.legalName}</span>
+      <span>Fractional operations and artist management, {site.location}.</span>
+    </div>
+  </footer>
+</Base>
